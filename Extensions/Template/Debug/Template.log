@@ -1,0 +1,20 @@
+﻿Build started 7/7/2013 1:46:41 AM.
+     1>Project "C:\Users\Samuel Benton\Google Drive\MMF2 Extensions\Xable Session Timer\Extensions\Template\Template.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\..\Inc /I.\ /ZI /nologo /W3 /WX- /Od /Oy- /D COXSDK /D IN_EXT_VERSION2 /D _CRT_SECURE_NO_WARNINGS /D _CRT_SECURE_NO_DEPRECATE /D _WINDOWS /D EDITOR /D _WINDLL /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Debug\\" /Fd".\Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt CustomParams.cpp Edittime.cpp Properties.cpp TextProps.cpp General.cpp Debugger.cpp Runtime.cpp Text.cpp Actions.cpp Conditions.cpp Expressions.cpp Extension.cpp ..\..\Lib\Edif.cpp ..\..\Lib\Edif.Edittime.cpp ..\..\Lib\Edif.General.cpp ..\..\Lib\Edif.Runtime.cpp ..\..\Lib\ObjectSelection.cpp
+         ObjectSelection.cpp
+         Edif.Runtime.cpp
+         Edif.General.cpp
+         Edif.Edittime.cpp
+         Edif.cpp
+         Extension.cpp
+         Expressions.cpp
+         Conditions.cpp
+         Actions.cpp
+         Text.cpp
+         Runtime.cpp
+     1>Done Building Project "C:\Users\Samuel Benton\Google Drive\MMF2 Extensions\Xable Session Timer\Extensions\Template\Template.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:15.71

@@ -1,0 +1,21 @@
+﻿Build started 11/7/2013 12:34:48 PM.
+     1>Project "C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\Template.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1137,5): warning MSB8012: TargetPath(C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\.\ReleaseRuntime\Xable Card Object.mfx) does not match the Linker's OutputFile property value (C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\MFX\Data\Runtime\Xable Card Object.mfx). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>Link:
+         Template.vcxproj -> C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\.\ReleaseRuntime\Xable Card Object.mfx
+       PostBuildEvent:
+         ..\AutoInstall.bat C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\.\ReleaseRuntime\Xable Card Object.mfx \Data\Runtime
+         :VCEnd
+         MFX File: C:\Users\Xable\Google
+         MFX Destination: Drive\MMF2
+         MMF2 Dev Path: C:\Program Files (x86)\Multimedia Fusion Developer 2
+         The system cannot find the file specified.
+     1>EXEC : error : The system was unable to find the specified registry key or value.
+         You don't have MMF2 Standard
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(134,5): error MSB3073: The command "..\AutoInstall.bat C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\.\ReleaseRuntime\Xable Card Object.mfx \Data\Runtime
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(134,5): error MSB3073: :VCEnd" exited with code -1.
+     1>Done Building Project "C:\Users\Xable\Google Drive\MMF2 Extensions\Xable Card Object\Extensions\Template\Template.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.19
