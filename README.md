@@ -6,4 +6,9 @@
 <i>Notes</i>
 - You only need <b><i> one instance </i></b>  of this extension per frame for a given .MFA file
 	- This extension is global across all frames (excluding sub-apps)
-- Any crashes related to this extension should be reported here or emailed to ProdigyXable@mail.com 
+- Any big/issues/crashes related to this extension should be reported here or emailed to ProdigyXable@mail.com 
+	- Please Include
+		- Extension Version
+		- How to reproduce the crash
+		- Files as necessary
+		-  Any other important information
