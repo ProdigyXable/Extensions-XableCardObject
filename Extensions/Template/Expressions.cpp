@@ -420,5 +420,6 @@ int Extension::LastLoopedDeck()
 }
 int Extension::LastLoopedIndex()
 {
+	
 	return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopIndex;
 }

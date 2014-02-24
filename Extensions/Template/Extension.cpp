@@ -89,14 +89,18 @@ Extension::Extension(RD *rd, SerializedED *SED, createObjectInfo *COB) : rd(rd),
 	//This is where you'd do anything you'd do in CreateRunObject in the original SDK.
 	//It's the only place you'll get access to the editdata at runtime, so you should
 	//transfer anything from the editdata to the extension class here. For example:
-//	EditData ed (SED);
-//	MyString = ed.MyString;
-//	MyInt = ed.MyInt;
-//	MyArray = ed.MyArray;
+	EditData ed (SED);
 
-	//
+	int total_deck_count = 0;
+	for(int index = -1; index < 16; index++)
+	{
+		total_deck_count += Extension::deck_size(index);
+	}
 
-
+	if(total_deck_count == 0)
+	{
+		Extension::create_deck(ed.InitialDeckSize,-1);
+	}
 
 }
 

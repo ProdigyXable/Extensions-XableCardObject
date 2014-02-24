@@ -27,7 +27,7 @@ namespace DB
 	 */
 	enum
 	{
-//		MyString,
+		DeckCount
 //		MyInt,
 	};
 }
@@ -40,13 +40,13 @@ WORD DebugTree[] =
 {
 //	DB::MyString|DB_EDITABLE,
 //	DB::MyInt|DB_EDITABLE,
-//	DB::SomethingThatIDontWantTheUserToBeAbleToEditAtRuntime,
+	DB::DeckCount,
 	DB_END
 };
 
 #endif
 
-/* GetDerbugTree
+/* GetDebugTree
  * Plain and simple, just return the debug
  * tree pointer from above. If you really
  * want to you can create the debug tree
@@ -74,21 +74,21 @@ void MMF2Func GetDebugItem(LPSTR Buffer, RD *rd, int ID)
 {
 #ifndef RUN_ONLY
 //	char temp[DB_BUFFERSIZE];
-//	switch (ID)
-//	{
+	switch (ID)
+	{
 //	case DB::MyString:
 //		{
 //			LoadString(hInstLib, IDS_CURRENTSTRING, temp, DB_BUFFERSIZE);
 //			wsprintf(pBuffer, temp, rdPtr->text);
 //			break;
 //		}
-//	case DB::MyInt:
-//		{
-//			LoadString(hInstLib, IDS_CURRENTVALUE, temp, DB_BUFFERSIZE);
-//			wsprintf(pBuffer, temp, rdPtr->value);
-//			break;
-//		}
-//	}
+	case DB::DeckCount:
+		{
+			
+			wsprintf(Buffer, "Deck Size: %i" , 12);
+			break;
+		}
+	}
 #endif
 }
 

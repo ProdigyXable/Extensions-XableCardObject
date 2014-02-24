@@ -34,6 +34,7 @@ namespace Prop
 		zNOT_USED = PROPID_EXTITEM_CUSTOM_FIRST,
 		Version,
 		Issues,
+		DeckSize,
 		//MyString,
 		//MyInt,
 	};
@@ -44,7 +45,7 @@ PropData Properties[] = //See the MMF2SDK help file for information on PropData_
 	PropData_StaticString(Prop::Version, (UINT_PTR)"Version:", (UINT_PTR)"Extension Version number"),
 	PropData_StaticString(Prop::Issues, (UINT_PTR)"Email", (UINT_PTR)"Any comments/issues/complaints/questions/etc should be sent here"),
 	//PropData_EditMultiLine(Prop::MyString, (UINT_PTR)"My String", (UINT_PTR)"The contents of my string."),
-	//PropData_EditNumber(Prop::MyInt, (UINT_PTR)"My Integer", (UINT_PTR)"The value of my integer."),
+	PropData_EditNumber(Prop::DeckSize, (UINT_PTR)"Initial Deck Size", (UINT_PTR)"How many deck will be created at the start of the frame"),
 	PropData_End()
 };
 
@@ -134,7 +135,7 @@ void MMF2Func ReleasePropCreateParam(mv *mV, SerializedED *SED, UINT PropID, LPA
 void *MMF2Func GetPropValue(mv *mV, SerializedED *SED, UINT PropID)
 {
 #ifndef RUN_ONLY
-	//EditData ed (SED);
+	EditData ed (SED);
 	switch(PropID)
 	{
 	case Prop::Issues:
@@ -144,6 +145,10 @@ void *MMF2Func GetPropValue(mv *mV, SerializedED *SED, UINT PropID)
 	case Prop::Version:
 		{
 			return new CPropDataValue("November 5th, 2013");
+		}
+	case Prop::DeckSize:
+		{
+			return new CPropIntValue(max(ed.InitialDeckSize,0));
 		}
 	
 	//case Prop::MyString:
@@ -170,22 +175,22 @@ void *MMF2Func GetPropValue(mv *mV, SerializedED *SED, UINT PropID)
 void MMF2Func SetPropValue(mv *mV, SerializedED *SED, UINT PropID, CPropValue *PropVal)
 {
 #ifndef RUN_ONLY
-	//EditData ed (SED);
-	//switch(PropID)
-	//{
+	EditData ed (SED);
+	switch(PropID)
+	{
 	//case PropData::MyString:
 	//	{
 	//		ed.MyString = (LPSTR)((CPropDataValue*)PropVal)->m_pData;
 	//		break;
 	//	}
-	//case PropData::MyInt:
-	//	{
-	//		ed.MyInt = (CPropDWordValue*)PropVal)->m_dwValue;
-	//		break;
-	//	}
-	//}
+	case Prop::DeckSize:
+		{
+		ed.InitialDeckSize = (int)((CPropDWordValue*)PropVal)->m_dwValue;
+			break;
+		}
+	}
 	//since you changed ed:
-	//ed.Serialize(mV, SED);
+	ed.Serialize(mV, SED);
 
 	//You may want to have your object redrawn in the
 	//frame editor after the modifications; in this
@@ -287,6 +292,10 @@ BOOL MMF2Func IsPropEnabled(mv *mV, SerializedED *SED, UINT PropID)
 			return TRUE;
 		}
 		case Prop::Issues:
+		{
+			return TRUE;
+		}
+		case Prop::DeckSize:
 		{
 			return TRUE;
 		}

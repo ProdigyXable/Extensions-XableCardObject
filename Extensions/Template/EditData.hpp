@@ -12,6 +12,7 @@
 
 struct EditData
 {
+
 	/* MyString, MyInt, MyArray_t, MyArray
 	 * Example data
 	 */
@@ -19,7 +20,7 @@ struct EditData
 	//int MyInt;
 	//typedef std::vector<float> MyArray_t;
 	//MyArray_t MyArray;
-
+	int InitialDeckSize;
 	/* <default constructor>
 	 * This is where you provide default values for
 	 * your editdata. This constructor is used
@@ -28,7 +29,7 @@ struct EditData
 	 */
 	EditData() // : MyString("Hello, world!"), MyInt(1337)
 	{
-		//MyArray.push_back(3.1415926f);
+		InitialDeckSize = 1;
 	}
 
 	/* <copy constructor>
@@ -39,7 +40,7 @@ struct EditData
 	 */
 	EditData(const EditData &from) // : MyString(from.MyString), MyInt(from.MyInt), MyArray(from.MyArray)
 	{
-		//
+
 	}
 
 	/* operator=
@@ -51,7 +52,7 @@ struct EditData
 	EditData &operator=(const EditData &from)
 	{
 		//MyString = from.MyString;
-		//MyInt = from.MyInt;
+		InitialDeckSize = from.InitialDeckSize;
 		//MyArray = from.MyArray;
 	}
 
@@ -67,7 +68,7 @@ struct EditData
 		//First, figure out how much space is needed
 		unsigned size = 0;
 		//size += (MyString.length()+1) * sizeof(stdtstring::value_type);
-		//size += sizeof(MyInt);
+		size += sizeof(InitialDeckSize);
 		//size += sizeof(MyArray_t::size_type);
 		//size += MyArray.size() * sizeof(MyArray_t::value_type);
 
@@ -89,7 +90,8 @@ struct EditData
 		char *p = (char *)(&SED->data); //put the pointer at the beginning of the space MMF2 gave us
 		//Perform the copy:												Advance the pointer:
 		//_tcscpy(p, MyString.c_str());									p += (MyString.length()+1) * sizeof(stdtstring::value_type);
-		//memcpy(p, &MyInt, sizeof(MyInt));								p += sizeof(MyInt);
+		memcpy(p, &InitialDeckSize, sizeof(InitialDeckSize));								
+		p += sizeof(InitialDeckSize);
 		//MyArray_t::size_type MyArray_size = MyArray.size();
 		//memcpy(p, &MyArray_size, sizeof(MyArray_size));				p += sizeof(MyArray_size);
 		//for(MyArray_t::size_type i = 0; i < MyArray_size; ++i)
@@ -126,7 +128,8 @@ struct EditData
 			char *p = (char *)(&SED->data);
 			//Load the data:													Advance the pointer:
 			//MyString = p; /*std::string is smart enough for this*/			p += (MyString.length()+1) * sizeof(stdtstring::value_type);
-			//MyInt = *(int *)p;												p += sizeof(MyInt);
+			InitialDeckSize = *(int *)p;												
+			p += sizeof(InitialDeckSize);
 			//MyArray_t::size_type MyArray_size = *(MyArray_t::size_type *)p;	p += sizeof(MyArray_size);
 			//for(MyArray_t::size_type i = 0; i < MyArray_size; ++i)
 			//{
