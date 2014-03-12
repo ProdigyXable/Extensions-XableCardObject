@@ -1,6 +1,6 @@
 <b><i>Xable Card Object</i></b>
 
-<p>Allows you to easily create a series of decks within the MMF2 & Fusion 2.</p>
+<p>Allows you to easily create a series of decks within the MMF2 & Clickteam Fusion.</p>
 
 <hr/>
 <i>Notes</i>
