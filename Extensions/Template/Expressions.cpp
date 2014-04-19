@@ -9,6 +9,7 @@
 
 #include "Common.h"
 #include <string>
+
 using namespace std;
 
 // Reveals the card_id in a specified deck at a specified deck position
@@ -110,7 +111,7 @@ TCHAR * Extension::reveal_Deck_CardName(int player_index, int index)
 		card_name = "Error: Negative Card Index";
 	}
 
-	return Extension::Runtime.CopyString(card_name.c_str());
+	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
 }
 
 // Reveals the suit of a card in a specified deck at a specified deck position
@@ -156,7 +157,7 @@ TCHAR * Extension::reveal_Deck_CardSuit(int player_index, int index)
 		card_name = "Error: Negative Card Index";
 	}
 
-	return Extension::Runtime.CopyString(card_name.c_str());
+	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
 }
 
 // Reveals the full name of a card (name + suit) in a specified deck at a specified deck position
@@ -247,7 +248,7 @@ TCHAR * Extension::reveal_Deck_Card(int player_index, int index)
 		card_name = "Error: Negative Card Index";
 	}
 
-	return Extension::Runtime.CopyString(card_name.c_str());
+	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
 }
 
 // Reveals the name of a card based on its card_id
@@ -303,8 +304,7 @@ TCHAR * Extension::convertCardID_Name(int card_id)
 	}
 
 
-	return Extension::Runtime.CopyString(card_name.c_str());
-
+	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
 }
 
 // Reveals the suit of a card based on its card_id
@@ -333,7 +333,7 @@ TCHAR * Extension::convertCardID_Suit(int card_id)
 		card_name = "Error: Invalid Card ID";
 	}
 
-	return Extension::Runtime.CopyString(card_name.c_str());
+	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
 
 }
 
@@ -408,7 +408,7 @@ TCHAR * Extension::convertCardID(int card_id)
 		card_name = "Error: Invalid Card ID";
 	}
 
-	return Extension::Runtime.CopyString(card_name.c_str());
+	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
 }
 
 // Returns the size of a specified deck
@@ -421,30 +421,29 @@ int Extension::deck_size(int player_index)
 // Returns the deck_id at a specified Queue index
 int Extension::QueueIndex(int Queue_index)
 {
-	return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.at(Queue_index);
+	return ExtensionData->DeckArrays.at(Queue_index);
 }
 
 // Returns the size of the queue
 int Extension::QueueSize()
 {
-	return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size();
+	return ExtensionData->DeckArrays.size();
 }
 
 // Returns the card_id of the last looped card in the last looped deck
 int Extension::LastLoopedCard()
 {
-	return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopCardValue;
+	return ExtensionData->LastLoopCardValue;
 }
 
 // Returns the deck_id of the last looped deck
 int Extension::LastLoopedDeck()
 {
-	return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopDeck;
+	return ExtensionData->LastLoopDeck;
 }
 
 // Returns the card_index of the last looped card in the last looped deck
 int Extension::LastLoopedIndex()
 {
-	
-	return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopIndex;
+	return ExtensionData->LastLoopIndex;
 }

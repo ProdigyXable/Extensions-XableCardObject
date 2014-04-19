@@ -17,6 +17,19 @@
 	#define MMFEXT	//MMF2, MMF2 Dev
 //	#define PROEXT	//MMF2 Dev only
 
+// -- Custom Shortcuts --
+#define BadDeckID 0
+#define IndexError 1
+#define EmptyDeck 2
+#define JustEmptiedDeck 3
+#define LostCard 4
+#define GainedCard 5
+#define Shuffled 9
+#define NewLoop 11
+
+// Pointer to the main data for the extension. This pointer houses all the data for the extension and is global to the MMF2/Clickteam Fusion application
+#define ExtensionData ((Extension::CardDeck *)Runtime.ReadGlobal((const TCHAR *)"GlobalCardData"))
+
 #include "Edif.h"
 #include "Resource.h"
 

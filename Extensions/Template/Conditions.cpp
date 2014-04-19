@@ -27,7 +27,7 @@ bool Extension::NullDeckSize()
 }
 
 // Executes when a deck has just lost its final card
-bool Extension::JustEmptiedDeck()
+bool Extension::NewlyEmptiedDeck()
 {
 	return true;
 }
@@ -47,7 +47,7 @@ bool Extension::DeckDecrease()
 // Executes when a specified deck lost its final card 
 bool Extension::SpecificDeckEmptied(int Deck_index)
 {
-	if(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentEmptyDeck == Deck_index)
+	if(ExtensionData->MostRecentEmptyDeck == Deck_index)
 	{
 		return true;
 	}
@@ -61,7 +61,7 @@ bool Extension::SpecificDeckEmptied(int Deck_index)
 // Executes when a specified deck has decreased in size
 bool Extension::SpecificDeckDecreased(int Deck_index)
 {
-	if(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentDecreasedDeck == Deck_index)
+	if(ExtensionData->MostRecentDecreasedDeck == Deck_index)
 	{
 		return true;
 	}
@@ -75,7 +75,7 @@ bool Extension::SpecificDeckDecreased(int Deck_index)
 // Executes when a specified deck has increased in size
 bool Extension::SpecificDeckIncreased(int Deck_index)
 {
-	if(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentIncreasedDeck == Deck_index)
+	if(ExtensionData->MostRecentIncreasedDeck == Deck_index)
 	{
 		return true;
 	}
@@ -95,7 +95,7 @@ bool Extension::DeckShuffled()
 // Executes when a specified deck has just been shuffled
 bool Extension::SpecificDeckShuffled(int Deck_index)
 {
-	if(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentShuffledDeck == Deck_index)
+	if(ExtensionData->MostRecentShuffledDeck == Deck_index)
 	{
 		return true;
 	}
@@ -109,7 +109,7 @@ bool Extension::SpecificDeckShuffled(int Deck_index)
 // Executes if the specified deck was just looped through
 bool Extension::Loop_Through_Deck_Immediate(int player_index)
 {
-	if(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopDeck == player_index)
+	if(ExtensionData->LastLoopDeck == player_index)
 	{
 		return true;
 	}

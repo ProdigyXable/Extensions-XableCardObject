@@ -66,7 +66,7 @@ Extension::Extension(RD *rd, SerializedED *SED, createObjectInfo *COB) : rd(rd),
 	LinkCondition(1, IndexOutOfBounds);
 	LinkCondition(2, NullDeckSize);
 
-	LinkCondition(3, JustEmptiedDeck);
+	LinkCondition(3, NewlyEmptiedDeck);
 	LinkCondition(4, DeckIncrease);
 	LinkCondition(5, DeckDecrease);
 	LinkCondition(9, DeckShuffled);

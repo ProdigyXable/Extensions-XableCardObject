@@ -72,22 +72,25 @@ LPWORD MMF2Func GetDebugTree(RD *rd)
  */
 void MMF2Func GetDebugItem(LPSTR Buffer, RD *rd, int ID)
 {
+LPWSTR pBuffer = (LPWSTR)Buffer;
 #ifndef RUN_ONLY
 //	char temp[DB_BUFFERSIZE];
 	switch (ID)
 	{
-//	case DB::MyString:
-//		{
-//			LoadString(hInstLib, IDS_CURRENTSTRING, temp, DB_BUFFERSIZE);
-//			wsprintf(pBuffer, temp, rdPtr->text);
-//			break;
-//		}
-	case DB::DeckCount:
-		{
-			
-			wsprintf(Buffer, "Deck Size: %i" , 12);
-			break;
-		}
+	#ifndef UNICODE
+			case DB::DeckCount:
+			{
+				wsprintf(Buffer, "Dealer Deck Size: %i" , rd->pExtension->deck_size(-1));
+				break;
+			}
+	#else UNICODE
+			case DB::DeckCount:
+			{
+				wsprintf(pBuffer, (LPWSTR)"Dealer Deck Size: %i" , rd->pExtension->deck_size(-1));
+				break;
+			}
+	#endif
+	
 	}
 #endif
 }

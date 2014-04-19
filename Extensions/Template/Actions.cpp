@@ -18,43 +18,43 @@ vector<int> & Extension::get_Deck(int player_index)
 	switch(player_index)
 		{
 			case -1:
-				return  ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->Deck;
+				return ExtensionData->Deck;
 			case 0:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerA;
+				return ExtensionData->PlayerA;
 			case 1:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerB;
+				return ExtensionData->PlayerB;
 			case 2:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerC;
+				return ExtensionData->PlayerC;
 			case 3:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerD;
+				return ExtensionData->PlayerD;
 			case 4:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerE;
+				return ExtensionData->PlayerE;
 			case 5:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerF;
+				return ExtensionData->PlayerF;
 			case 6:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerG;
+				return ExtensionData->PlayerG;
 			case 7:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerH;
+				return ExtensionData->PlayerH;
 			case 8:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerI;
+				return ExtensionData->PlayerI;
 			case 9:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerJ;
+				return ExtensionData->PlayerJ;
 			case 10:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerK;
+				return ExtensionData->PlayerK;
 			case 11:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerL;
+				return ExtensionData->PlayerL;
 			case 12:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerM;
+				return ExtensionData->PlayerM;
 			case 13:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerN;
+				return ExtensionData->PlayerN;
 			case 14:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerO;
+				return ExtensionData->PlayerO;
 			case 15:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->PlayerP;
+				return ExtensionData->PlayerP;
 
-			// Defaulter returned deck. May need to be removed in case of future problems
+			// Default returned deck. May need to be removed in case of future problems
 			default:
-				return ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->Deck;
+				return ExtensionData->Deck;
 		}
 			
 }
@@ -78,7 +78,7 @@ void Extension::create_deck(int decks, int home_deck)
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 
 }
@@ -112,23 +112,23 @@ void Extension::shuffle_deck_small(int player_index)
 				Deck.at(b) = dummy_value;
 			}
 
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentShuffledDeck = player_index;
+			ExtensionData->MostRecentShuffledDeck = player_index;
 			
 			// Immediate Condition to determine if a deck has just been shuffled
-			Runtime.GenerateEvent(9);
+			Runtime.GenerateEvent(Shuffled);
 		}
 
 		// Executes when a deck is empty
 		else
 		{
-			Runtime.GenerateEvent(2);
+			Runtime.GenerateEvent(EmptyDeck);
 		}
 	}
 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 }
 
@@ -158,21 +158,21 @@ void Extension::shuffle_deck_medium(int player_index)
 			}
 
 			// Immediate Condition to determine if a deck has just been shuffled
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentShuffledDeck = player_index;
-			Runtime.GenerateEvent(9);
+			ExtensionData->MostRecentShuffledDeck = player_index;
+			Runtime.GenerateEvent(Shuffled);
 		}
 
 		// Executes when a deck is empty
 		else
 		{
-			Runtime.GenerateEvent(2);
+			Runtime.GenerateEvent(EmptyDeck);
 		}
 	}
 	
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 
 }
@@ -203,21 +203,21 @@ void Extension::shuffle_deck_large(int player_index)
 			}
 
 			// Immediate Condition to determine if a deck has just been shuffled
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentShuffledDeck = player_index;
-			Runtime.GenerateEvent(9);
+			ExtensionData->MostRecentShuffledDeck = player_index;
+			Runtime.GenerateEvent(Shuffled);
 		}
 		
 		// Executes when a deck is empty
 		else
 		{
-			Runtime.GenerateEvent(2);
+			Runtime.GenerateEvent(EmptyDeck);
 		}
 	}
 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 }
 
@@ -243,51 +243,49 @@ void Extension::give_single_card(int player_index, int player2_index, int Deck_L
 				if(player_index != player2_index)
 					{
 						// Sets most recent values
-						((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentDecreasedDeck = player2_index;
-						((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentIncreasedDeck = player_index;
+						ExtensionData->MostRecentDecreasedDeck = player2_index;
+						ExtensionData->MostRecentIncreasedDeck = player_index;
 						
 						// Called when a deck loses a card
-						Runtime.GenerateEvent(4);
+						Runtime.GenerateEvent(LostCard);
 
 						// Called when a deck gains a card
-						Runtime.GenerateEvent(5);	
+						Runtime.GenerateEvent(GainedCard);	
 					}
 
 				// Immediate Condition to test if a Deck has just been emptied
 				if(Deck_Losing_A_Card.size() == 0)
 				{
-					((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentEmptyDeck = player2_index;
-					Runtime.GenerateEvent(3);
-					
+					ExtensionData->MostRecentEmptyDeck = player2_index;
+					Runtime.GenerateEvent(JustEmptiedDeck);
 				}
 			}
 
 			// Index out of Bounds Error [Negative Index]/[Index larger than deck size]
 			else if(Deck_Losing_A_Card_index >= Deck_Losing_A_Card.size() || Deck_Losing_A_Card_index < 0)
 			{
-				Runtime.GenerateEvent(1);
+				Runtime.GenerateEvent(IndexError);
 			}
-
 
 			// Executes when a deck is empty
 			else if(Deck_Losing_A_Card.size() <= 0)
 			{
-				Runtime.GenerateEvent(2);
+				Runtime.GenerateEvent(EmptyDeck);
 			}
 
 		}
 
-		// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
+		// Executes when incorrect player/deck index is chosen (x < -1 or x > 15)
 		else
 		{
-			Runtime.GenerateEvent(0);
+			Runtime.GenerateEvent(BadDeckID);
 		}
 	}
 
-	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
+	// Executes when incorrect player/deck index is chosen (x < -1 or x > 15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 		
 	
@@ -320,36 +318,36 @@ void Extension::give_multiple_cards(int player_index, int player2_index, int Dec
 					if(player_index != player2_index)
 					{
 						// Sets more recent values
-						((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentDecreasedDeck = player2_index;
-						((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentIncreasedDeck = player_index;
+						ExtensionData->MostRecentDecreasedDeck = player2_index;
+						ExtensionData->MostRecentIncreasedDeck = player_index;
 						
 						// Called when a deck loses a card
-						Runtime.GenerateEvent(4);
+						Runtime.GenerateEvent(LostCard);
 
 						// Called when a deck gains a card
-						Runtime.GenerateEvent(5);
+						Runtime.GenerateEvent(GainedCard);
 					}
 				}
 
 				// Immediate Condition to test if a Deck has just been emptied
 				if(Deck_Losing_A_Card.size() == 0)
 				{
-					((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentEmptyDeck = player2_index;
-					Runtime.GenerateEvent(3);
+					ExtensionData->MostRecentEmptyDeck = player2_index;
+					Runtime.GenerateEvent(JustEmptiedDeck);
 				}
 			}
 
 			// Index out of Bounds Error [Negative Index]/[Index larger than deck size]
 			else if(Deck_Losing_A_Card_index >= Deck_Losing_A_Card.size() || card_count > Deck_Losing_A_Card.size() || Deck_Losing_A_Card_index < 0)
 			{
-				Runtime.GenerateEvent(1);
+				Runtime.GenerateEvent(IndexError);
 			}
 
 
 			// Executes when a deck is empty
 			else if(Deck_Losing_A_Card.size() <= 0 || card_count < 0)
 			{
-				Runtime.GenerateEvent(2);
+				Runtime.GenerateEvent(EmptyDeck);
 			}
 
 		}
@@ -357,14 +355,14 @@ void Extension::give_multiple_cards(int player_index, int player2_index, int Dec
 		else
 		{
 			// Invalid Deck ID Condition 
-			Runtime.GenerateEvent(0);
+			Runtime.GenerateEvent(BadDeckID);
 		}
 	}
 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 		
 	
@@ -373,7 +371,7 @@ void Extension::give_multiple_cards(int player_index, int player2_index, int Dec
 // Distributes a specified amount of cards from one deck and to all decks in the deck queue
 void Extension::split_deck_clockwise(int cards, int starting_number, int home_deck)
 {
-	if(starting_number < ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size() && starting_number >= 0
+	if(starting_number < ExtensionData->DeckArrays.size() && starting_number >= 0
 		&& home_deck <= 15 && home_deck >=-1)
 	{
 		
@@ -384,10 +382,10 @@ void Extension::split_deck_clockwise(int cards, int starting_number, int home_de
 		{
 		
 			// Correctly passes the card
-			give_single_card(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.at(deck_index),home_deck,0);
+			give_single_card(ExtensionData->DeckArrays.at(deck_index),home_deck,0);
 			
 			// Initiates circular loop on the queue index
-			deck_index = ((deck_index + 1 ) % ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size());
+			deck_index = ((deck_index + 1 ) % ExtensionData->DeckArrays.size());
 			loop_index++;
 
 		}
@@ -396,20 +394,20 @@ void Extension::split_deck_clockwise(int cards, int starting_number, int home_de
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else if(home_deck < -1 || home_deck > 15)
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 
 	// Index out of Bounds Error [Negative Index]/[Index larger than deck size]
 	else
 	{
-		Runtime.GenerateEvent(1);
+		Runtime.GenerateEvent(IndexError);
 	}
 }
 
 // Distributes a specified amount of cards from one deck and to all decks in the deck queue (reversed in order)
 void Extension::split_deck_counterclockwise(int cards, int starting_number, int home_deck)
 {
-	if(starting_number < ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size() && starting_number >= 0
+	if(starting_number < ExtensionData->DeckArrays.size() && starting_number >= 0
 		&& home_deck >= -1 && home_deck <= 15)
 	{
 		int loop_index = 0;
@@ -419,10 +417,10 @@ void Extension::split_deck_counterclockwise(int cards, int starting_number, int 
 		while(loop_index < cards)
 		{
 			// Correctly passes cards
-			give_single_card(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.at(deck_index),home_deck,0);	
+			give_single_card(ExtensionData->DeckArrays.at(deck_index),home_deck,0);	
 		
 			// Initiates circular loop on queue index
-			deck_index = ((deck_index + ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size() - 1 ) % ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size());
+			deck_index = ((deck_index + ExtensionData->DeckArrays.size() - 1 ) % ExtensionData->DeckArrays.size());
 			loop_index++;
 
 		}
@@ -431,13 +429,13 @@ void Extension::split_deck_counterclockwise(int cards, int starting_number, int 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else if(home_deck < -1 || home_deck > 15)
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 
 	// Index out of Bounds Error [Negative Index]/[Index larger than deck size]
 	else 
 	{
-		Runtime.GenerateEvent(1);
+		Runtime.GenerateEvent(IndexError);
 	}
 	
 }
@@ -467,8 +465,8 @@ void Extension::shuffle_deck_custom(int player_index,int card_swaps)
 			}
 
 			// Immediate Condition to determine if a deck has just been shuffled
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->MostRecentShuffledDeck = player_index;
-			Runtime.GenerateEvent(9);
+			ExtensionData->MostRecentShuffledDeck = player_index;
+			Runtime.GenerateEvent(Shuffled);
 			
 
 		}
@@ -476,14 +474,14 @@ void Extension::shuffle_deck_custom(int player_index,int card_swaps)
 		// Executes when a deck is empty
 		else
 		{
-			Runtime.GenerateEvent(2);
+			Runtime.GenerateEvent(EmptyDeck);
 		}
 	}
 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 }
 
@@ -493,31 +491,31 @@ void Extension::AddQueue(int player_index)
 	if(player_index >= -1 && player_index <= 15)
 	{
 		// Adds the deck to the specified queue
-		((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.push_back(player_index);
+		ExtensionData->DeckArrays.push_back(player_index);
 	}
 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 }
 
 // Removes the deck at the specified deck queue form the deck queue
 void Extension::RemoveQueue(int Queue_index)
 {
-	if(Queue_index < ((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.size() && Queue_index > 0)
+	if(Queue_index < ExtensionData->DeckArrays.size() && Queue_index > 0)
 	{
 		// Removes nth deck from the queue
-		((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.erase(((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.begin()+ Queue_index);
+		ExtensionData->DeckArrays.erase(ExtensionData->DeckArrays.begin()+ Queue_index);
 		
 		// Shrinks the queue index
-		((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->DeckArrays.shrink_to_fit();
+		ExtensionData->DeckArrays.shrink_to_fit();
 	}
 	// Index out of Bounds Error [Negative Index]/[Index larger than queue size]
 	else
 	{
-		Runtime.GenerateEvent(1);
+		Runtime.GenerateEvent(IndexError);
 	}
 
 }
@@ -548,25 +546,25 @@ void Extension::Loop_Through_Deck(int player_index)
 		for(int index = 0; index < Deck.size(); index++)
 		{
 			// Sets LastLooped values
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopDeck = player_index;
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopCardValue = Deck.at(index);
-			((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopIndex = index;
+			ExtensionData->LastLoopDeck = player_index;
+			ExtensionData->LastLoopCardValue = Deck.at(index);
+			ExtensionData->LastLoopIndex = index;
 			
 			// Trigger to signify a loop has been activated
-			Runtime.GenerateEvent(11);
+			Runtime.GenerateEvent(NewLoop);
 		}
 
 		// Resets LastLooped Values
-		((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopDeck = -100 ;
-		((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopCardValue = -100;
-		((Extension::CardDeck *)Runtime.ReadGlobal("GlobalCardData"))->LastLoopIndex = -100;
+		ExtensionData->LastLoopDeck = -100 ;
+		ExtensionData->LastLoopCardValue = -100;
+		ExtensionData->LastLoopIndex = -100;
 
 	}
 
 	// Executes when incorrect player/deck index is chosen ( x < -1 or x >15)
 	else
 	{
-		Runtime.GenerateEvent(0);
+		Runtime.GenerateEvent(BadDeckID);
 	}
 		
 }

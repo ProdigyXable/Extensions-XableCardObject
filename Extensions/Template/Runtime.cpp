@@ -89,8 +89,8 @@ void MMF2Func StartApp(mv *mV, CRunApp *App)
 {
 	
 
-	delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData");
-	Edif::Runtime::WriteGlobal(mV, App, "GlobalCardData", new Extension::CardDeck());
+	delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData");
+	Edif::Runtime::WriteGlobal(mV, App, (const TCHAR *)"GlobalCardData", new Extension::CardDeck());
 
 
 }
@@ -104,7 +104,7 @@ void MMF2Func StartApp(mv *mV, CRunApp *App)
  */
 void MMF2Func EndApp(mv *mV, CRunApp *App)
 {
-	delete (Extension::CardDeck*)Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData");
+	delete (Extension::CardDeck*)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData");
 }
 
 /* StartFrame
@@ -118,16 +118,16 @@ void MMF2Func EndApp(mv *mV, CRunApp *App)
  */
 void MMF2Func StartFrame(mv *mV, CRunApp *App, int FrameIndex)
 {
-	if(!Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData Backup")) //first time on this frame
+	if(!Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData Backup")) //first time on this frame
 	{
-		Edif::Runtime::WriteGlobal(mV, App, "GlobalCardData Backup",
-			new Extension::CardDeck(*(Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData"))); //copy
+		Edif::Runtime::WriteGlobal(mV, App, (const TCHAR *)"GlobalCardData Backup",
+			new Extension::CardDeck(*(Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData"))); //copy
 	}
 	else //frame restarting, restore initial global data
 	{
-		delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData");
-		Edif::Runtime::WriteGlobal(mV, App, "GlobalCardData",
-			new Extension::CardDeck(*(Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData Backup"))); //copy
+		delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData");
+		Edif::Runtime::WriteGlobal(mV, App, (const TCHAR *)"GlobalCardData",
+			new Extension::CardDeck(*(Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData Backup"))); //copy
 	}
 }
 
@@ -138,8 +138,8 @@ void MMF2Func StartFrame(mv *mV, CRunApp *App, int FrameIndex)
  */
 void MMF2Func EndFrame(mv *mV, CRunApp *App, int FrameIndex)
 {
-	Edif::Runtime::WriteGlobal(mV, App, "GlobalCardData Backup", 0);
-	delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, "GlobalCardData Backup");
+	Edif::Runtime::WriteGlobal(mV, App, (const TCHAR *)"GlobalCardData Backup", 0);
+	delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData Backup");
 }
 
 

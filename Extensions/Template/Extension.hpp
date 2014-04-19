@@ -181,7 +181,7 @@ public:
 	bool IndexOutOfBounds();
 	bool NullDeckSize();
 
-	bool JustEmptiedDeck();
+	bool NewlyEmptiedDeck();
 	bool DeckIncrease();
 	bool DeckDecrease();
 	bool DeckShuffled();
