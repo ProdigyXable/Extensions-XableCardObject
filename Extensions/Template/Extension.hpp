@@ -135,11 +135,6 @@ public:
 		}
 	};
 
-	//stdtstring MyString;
-	//int MyInt;
-	//std::vector<float> MyArray;
-
-
 	/* Add your actions, conditions, and expressions
 	 * as real class member functions here. The arguments
 	 * (and return types for expressions/conditions)
@@ -210,8 +205,6 @@ public:
 	TCHAR *  reveal_Deck_Card(int player_index, int index);		
 
 	std::vector<int> & get_Deck(int player_index);
-
-	////
 
 	short Handle();			//defined & documented in Extension.cpp
 	short Display();		//defined & documented in Extension.cpp

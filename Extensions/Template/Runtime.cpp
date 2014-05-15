@@ -87,12 +87,8 @@
  */
 void MMF2Func StartApp(mv *mV, CRunApp *App)
 {
-	
-
 	delete (Extension::CardDeck *)Edif::Runtime::ReadGlobal(mV, App, (const TCHAR *)"GlobalCardData");
 	Edif::Runtime::WriteGlobal(mV, App, (const TCHAR *)"GlobalCardData", new Extension::CardDeck());
-
-
 }
 
 /* EndApp

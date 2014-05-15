@@ -175,7 +175,7 @@ bool Extension::CardDiamond(int card_id)
 // Returns true if the specified card id matches the specified suit id
 bool Extension::CardSuit(int card_id, int suit_id)
 {
-	if(card_id % 4 == suit_id && card_id >=0 && card_id <=51)
+	if(card_id % 4 == suit_id && card_id >= 0 && card_id <= 51)
 	{
 		return true;
 	}
@@ -189,7 +189,7 @@ bool Extension::CardSuit(int card_id, int suit_id)
 // Returns true if the specified card is a certain value, such as card_id 50 = Ace (14)
 bool Extension::CardValue(int card_id, int value)
 {
-	if((card_id / 4)  == value && card_id >= 0 && card_id <=51)
+	if((card_id / 4)  == value && card_id >= 0 && card_id <= 51)
 	{
 		return true;
 	}

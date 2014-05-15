@@ -149,20 +149,20 @@
 				["Integer","Deck ID"],
             ],
     },
-	 {"Title": "Split the deck clockwise starting with deck %1, dealing %0 cards, from deck %2",
+	 {"Title": "Split the deck clockwise starting with deck %1, dealing %0 cards, taking cards from deck %2",
             "Parameters": 
 			[
 				["Integer","Total number of dealt cards"],
 				["Integer","Intial Queue Index"],
-				["Integer","Deck ID"],
+				["Integer","Deck Losing Cards"],
             ],
     },
-	{"Title": "Split the deck counter clockwise starting with deck %1, dealing %0 cards, from deck %2",
+	{"Title": "Split the deck counter clockwise starting with deck %1, dealing %0 cards, taking cards from deck %2",
             "Parameters": 
 			[
 				["Integer","Total number of dealt cards"],
 				["Integer","Intial Queue Index"],
-				["Integer","Deck ID"],
+				["Integer","Deck Losing Cards"],
             ],
     },
 	{"Title": "Pass one card to deck %0 from the %2th card of deck %1",
