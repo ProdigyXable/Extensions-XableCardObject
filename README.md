@@ -1,6 +1,6 @@
 <h2><b><i>Xable Card Object</i></b></h2>
 
-<p>Allows you to easily create a series of card and card-esque code snippets within the MMF2 & Clickteam Fusion.</p>
+<p>Allows you to easily create a series of card and card-esque code snippets within MMF2 & Clickteam Fusion.</p>
 
 <hr/>
 <i>Notes</i>
