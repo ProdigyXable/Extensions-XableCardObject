@@ -47,71 +47,37 @@ TCHAR * Extension::reveal_Deck_CardName(int player_index, int index)
 {
 	int card_id = reveal_Deck_CardNumber(player_index, index);
 	
-	string card_name = "";
-	switch(card_id/4)
-	{
-		case 0:
-			card_name += "Two";	
-			break;
-		case 1:
-			card_name += "Three";
-			break;
-		case 2:
-			card_name += "Four";
-			break;
-		case 3:
-			card_name += "Five";
-			break;
-		case 4:
-			card_name += "Six";
-			break;
-		case 5:
-			card_name += "Seven";
-			break;
-		case 6:
-			card_name += "Eight";
-			break;
-		case 7:
-			card_name += "Nine";
-			break;
-		case 8:
-			card_name += "Ten";
-			break;
-		case 9:
-			card_name += "Jack";
-			break;
-		case 10:
-			card_name += "Queen";
-			break;
-		case 11:
-			card_name += "King";
-			break;
-		case 12:
-			card_name += "Ace";
-			break;
-	}
-
+	TCHAR * card_name;
+	
 	if (card_id == -5)
 	{
-		card_name = "Error: Specified Deck Not Found";
+		card_name = _T("Error: Specified Deck Not Found");
 	}
 
 	else if(card_id == -2)
 	{
-		card_name = "Error: Specified Card Not Found";
+		card_name = _T("Error: Specified Card Not Found");
 	}
 
 	else if(card_id == -4)
 	{
-		card_name = "Error: Unknown Error";
+		card_name = _T("Error: Unknown Error");
 	}
 
 	else if(card_id == -3)
 	{
-		card_name = "Error: Negative Card Index";
+		card_name = _T("Error: Negative Card Index");
 	}
 
-	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
+	else
+	{
+		return Extension::convertCardID_Name(card_id);
+	}
+	
+	TCHAR * error_string = (TCHAR *) Runtime.Allocate(_tcslen(card_name) + 1);
+	_tcscpy(error_string,card_name);
+
+	return error_string;
 }
 
 // Reveals the suit of a card in a specified deck at a specified deck position
@@ -119,45 +85,37 @@ TCHAR * Extension::reveal_Deck_CardSuit(int player_index, int index)
 {
 	int card_id = reveal_Deck_CardNumber(player_index, index);
 	
-	string card_name = "";
-	switch(card_id % 4)
-	{
-		case 0:
-			card_name += "Diamond";
-			break;
-		case 1:
-			card_name += "Club";
-			break;
-		case 2:
-			card_name += "Heart";
-			break;
-		case 3:
-			card_name += "Spade";
-			break;
-		
-	}
-
+	TCHAR * card_name;
+	
 	if (card_id == -5)
 	{
-		card_name = "Error: Specified Deck Not Found";
+		card_name = _T("Error: Specified Deck Not Found");
 	}
 
 	else if(card_id == -2)
 	{
-		card_name = "Error: Specified Card Not Found";
+		card_name = _T("Error: Specified Card Not Found");
 	}
 
 	else if(card_id == -4)
 	{
-		card_name = "Error: Unknown Error";
+		card_name = _T("Error: Unknown Error");
 	}
 
 	else if(card_id == -3)
 	{
-		card_name = "Error: Negative Card Index";
+		card_name = _T("Error: Negative Card Index");
 	}
 
-	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
+	else
+	{
+		return Extension::convertCardID_Suit(card_id);
+	}
+	
+	TCHAR * error_string = (TCHAR *) Runtime.Allocate(_tcslen(card_name) + 1);
+	_tcscpy(error_string,card_name);
+
+	return error_string;
 }
 
 // Reveals the full name of a card (name + suit) in a specified deck at a specified deck position
@@ -165,250 +123,222 @@ TCHAR * Extension::reveal_Deck_Card(int player_index, int index)
 {
 	int card_id = reveal_Deck_CardNumber(player_index, index);
 	
-	string card_name = "";
-	switch(card_id/4)
-	{
-		case 0:
-			card_name += "Two";	
-			break;
-		case 1:
-			card_name += "Three";
-			break;
-		case 2:
-			card_name += "Four";
-			break;
-		case 3:
-			card_name += "Five";
-			break;
-		case 4:
-			card_name += "Six";
-			break;
-		case 5:
-			card_name += "Seven";
-			break;
-		case 6:
-			card_name += "Eight";
-			break;
-		case 7:
-			card_name += "Nine";
-			break;
-		case 8:
-			card_name += "Ten";
-			break;
-		case 9:
-			card_name += "Jack";
-			break;
-		case 10:
-			card_name += "Queen";
-			break;
-		case 11:
-			card_name += "King";
-			break;
-		case 12:
-			card_name += "Ace";
-			break;
-	}
-
-	card_name += " of ";
-
-	switch(card_id % 4)
-	{
-		case 0:
-			card_name += "Diamonds";
-			break;
-		case 1:
-			card_name += "Clubs";
-			break;
-		case 2:
-			card_name += "Hearts";
-			break;
-		case 3:
-			card_name += "Spades";
-			break;
-		
-	}
-
+	TCHAR * card_name;
+	
 	if (card_id == -5)
 	{
-		card_name = "Error: Specified Deck Not Found";
+		card_name = _T("Error: Specified Deck Not Found");
 	}
 
 	else if(card_id == -2)
 	{
-		card_name = "Error: Specified Card Not Found";
+		card_name = _T("Error: Specified Card Not Found");
 	}
 
 	else if(card_id == -4)
 	{
-		card_name = "Error: Unknown Error";
+		card_name = _T("Error: Unknown Error");
 	}
 
 	else if(card_id == -3)
 	{
-		card_name = "Error: Negative Card Index";
+		card_name = _T("Error: Negative Card Index");
 	}
 
-	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
+	else
+	{
+		return Extension::convertCardID(card_id);
+	}
+	
+	TCHAR * error_string = (TCHAR *) Runtime.Allocate(_tcslen(card_name) + 1);
+	_tcscpy(error_string,card_name);
+
+	return error_string;
 }
 
 // Reveals the name of a card based on its card_id
 TCHAR * Extension::convertCardID_Name(int card_id)
 {
-	string card_name = "";
+	TCHAR * card_name;
 	switch(card_id/4)
 	{
 		case 0:
-			card_name += "Two";	
+			card_name = _T("Two");	
 			break;
 		case 1:
-			card_name += "Three";
+			card_name = _T("Three");
 			break;
 		case 2:
-			card_name += "Four";
+			card_name = _T("Four");
 			break;
 		case 3:
-			card_name += "Five";
+			card_name = _T("Five");
 			break;
 		case 4:
-			card_name += "Six";
+			card_name = _T("Six");
 			break;
 		case 5:
-			card_name += "Seven";
+			card_name = _T("Seven");
 			break;
 		case 6:
-			card_name += "Eight";
+			card_name = _T("Eight");
 			break;
 		case 7:
-			card_name += "Nine";
+			card_name = _T("Nine");
 			break;
 		case 8:
-			card_name += "Ten";
+			card_name = _T("Ten");
 			break;
 		case 9:
-			card_name += "Jack";
+			card_name = _T("Jack");
 			break;
 		case 10:
-			card_name += "Queen";
+			card_name = _T("Queen");
 			break;
 		case 11:
-			card_name += "King";
+			card_name = _T("King");
 			break;
 		case 12:
-			card_name += "Ace";
+			card_name = _T("Ace");
 			break;
 	}
 
 	if(card_id < 0 || card_id > 51)
 	{
-		card_name = "Error: Invalid Card ID";
+		card_name = _T("Error: Invalid Card ID");
 	}
 
+	TCHAR * correct_string = (TCHAR *) Runtime.Allocate(_tcslen(card_name) + 1);
+	_tcscpy(correct_string, card_name);
 
-	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
+	return correct_string;
 }
 
 // Reveals the suit of a card based on its card_id
 TCHAR * Extension::convertCardID_Suit(int card_id)
 {
-	string card_name = "";
+	TCHAR * card_name;
+	int length = 0;
+
 	switch(card_id % 4)
 	{
 		case 0:
-			card_name += "Diamond";
+			card_name = _T("Diamond");
+			length = 8;
 			break;
 		case 1:
-			card_name += "Club";
+			card_name = _T("Club");
+			length = 5;
 			break;
 		case 2:
-			card_name += "Heart";
+			card_name = _T("Heart");
+			length = 6;
 			break;
 		case 3:
-			card_name += "Spade";
+			card_name = _T("Spade");
+			length = 6;
 			break;
-		
 	}
 
 	if(card_id < 0 || card_id > 51)
 	{
-		card_name = "Error: Invalid Card ID";
+		card_name = _T("Error: Invalid Card ID");
+		length = 21;
 	}
 
-	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
-
+	TCHAR * correct_string = (TCHAR *) Runtime.Allocate(length);
+	_tcscpy(correct_string, card_name);
+	
+	return correct_string;
 }
 
-// Reveals the full name (name + suit) of a carad based on its card_id
+// Reveals the full name (name + suit) of a card based on its card_id
 TCHAR * Extension::convertCardID(int card_id)
 {
-	string card_name = "";
+	#ifdef _UNICODE
+		wstring card_name;
+	#else
+		string card_name;
+	#endif
+
+	int length = 0;
+
 	switch(card_id/4)
 	{
 		case 0:
-			card_name += "Two";	
+			card_name = _T("Two of ");	
+			 
 			break;
 		case 1:
-			card_name += "Three";
+			card_name = _T("Three of ");
 			break;
 		case 2:
-			card_name += "Four";
+			card_name = _T("Four of ");
 			break;
 		case 3:
-			card_name += "Five";
+			card_name = _T("Five of ");
 			break;
 		case 4:
-			card_name += "Six";
+			card_name = _T("Six of ");
 			break;
 		case 5:
-			card_name += "Seven";
+			card_name = _T("Seven of ");
 			break;
 		case 6:
-			card_name += "Eight";
+			card_name = _T("Eight of ");
 			break;
 		case 7:
-			card_name += "Nine";
+			card_name = _T("Nine of ");
 			break;
 		case 8:
-			card_name += "Ten";
+			card_name = _T("Ten of ");
 			break;
 		case 9:
-			card_name += "Jack";
+			card_name = _T("Jack of ");
 			break;
 		case 10:
-			card_name += "Queen";
+			card_name = _T("Queen of ");
 			break;
 		case 11:
-			card_name += "King";
+			card_name = _T("King of ");
 			break;
 		case 12:
-			card_name += "Ace";
+			card_name = _T("Ace of ");
 			break;
 	}
 
-	card_name += " of ";
+		length = _tcslen((const TCHAR *)card_name.c_str());
 
 	switch(card_id % 4)
 	{
 		case 0:
-			card_name += "Diamonds";
+			card_name.append(_T("Diamonds"));
+			length += 9;
 			break;
 		case 1:
-			card_name += "Clubs";
+			card_name.append(_T("Clubs"));
+			length += 6;
 			break;
 		case 2:
-			card_name += "Hearts";
+			card_name.append(_T("Hearts"));
+			length += 7;
 			break;
 		case 3:
-			card_name += "Spades";
+			card_name.append(_T("Spades"));
+			length += 7;
 			break;
 		
 	}
 
 	if(card_id < 0 || card_id > 51)
 	{
-		card_name = "Error: Invalid Card ID";
+		card_name = _T("Error: Invalid Card ID");
+		length = 23;
 	}
 
-	return Extension::Runtime.CopyString((TCHAR *)card_name.c_str());
+	TCHAR * correct_string = (TCHAR *) Runtime.Allocate(length);
+	_tcscpy(correct_string, (TCHAR *)card_name.c_str());
+	return correct_string;
 }
 
 // Returns the size of a specified deck

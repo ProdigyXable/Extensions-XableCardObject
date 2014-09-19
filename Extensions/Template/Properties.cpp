@@ -144,7 +144,7 @@ void *MMF2Func GetPropValue(mv *mV, SerializedED *SED, UINT PropID)
 		}
 	case Prop::Version:
 		{
-			return new CPropDataValue("November 5th, 2013");
+			return new CPropDataValue("September 19th, 2014");
 		}
 	case Prop::DeckSize:
 		{
